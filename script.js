@@ -10,9 +10,15 @@ let result = 0
 let score = document.querySelector('#score')
 let level = document.querySelector('#level')
 
-// запись по цвсс
-let cvss_score = document.querySelector('#cvss_score')
-cvss_score.addEventListener('change', calcAll)
+// поле для вставки кнопок цвсс по строке
+let fstec_cvss_score = document.querySelector('#cvss_score')
+let cvss_score = document.querySelector('#environmentalMetricScore')
+console.log(cvss_score)
+cvss_score.addEventListener('DOMSubtreeModified', () => {
+    fstec_cvss_score.value = cvss_score.innerText
+})
+fstec_cvss_score.addEventListener('change', calcAll)
+
 
 // обработка выбора опции
 function changeOption(select, id){
@@ -36,7 +42,7 @@ function get_I_infr() {
 }
 
 function calcAll() {
-    result = parseFloat(cvss_score.value).toFixed(2) * parseFloat(res_infr.innerText).toFixed(2)
+    result = parseFloat(fstec_cvss_score.value).toFixed(2) * parseFloat(res_infr.innerText).toFixed(2)
     score.innerText = result.toFixed(2)
     console.log(result)
     setCritical(result)
